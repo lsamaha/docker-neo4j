@@ -39,5 +39,6 @@ RUN sed -i 's/#org.neo4j.server.webserver.address/org.neo4j.server.webserver.add
 
 # startup
 
+USER neo
 RUN ${neodir}/bin/neo4j start-no-wait && tail -f ${neodir}/data/log/*.log &
 
