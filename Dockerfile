@@ -7,13 +7,17 @@ RUN useradd -s /bin/nologin neo
 
 # tools
 
-RUN apt-get update && apt-get install -y \
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \  
+    apt-get install -y \
     wget \
     lsof \
     apache2 \
     openssl \
     openjdk-7-jre-headless
-RUN apt-get clean autoclean && \
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get clean autoclean && \
     apt-get autoremove
 
 # dirs
@@ -40,7 +44,11 @@ RUN chown -R neo:neo ${datadir}
 EXPOSE 7473 7474
 RUN sed -i 's/#org.neo4j.server.webserver.address/org.neo4j.server.webserver.address/g' ${neodir}/conf/neo4j-server.properties
 
+# data
+
+VOLUME ${datadir}
+
 # startup
 
-RUN ${neodir}/bin/neo4j start
+CMD ${neodir}/bin/neo4j start-no-wait && tail -f ${neodir}/data/log/*.log 
 
