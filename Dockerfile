@@ -9,6 +9,9 @@ RUN useradd -s /bin/nologin neo
 
 RUN apt-get update && apt-get install -y \
     wget \
+    lsof \
+    apache2 \
+    openssl \
     openjdk-7-jre-headless
 RUN apt-get clean autoclean && \
     apt-get autoremove
@@ -39,6 +42,5 @@ RUN sed -i 's/#org.neo4j.server.webserver.address/org.neo4j.server.webserver.add
 
 # startup
 
-USER neo
-RUN ${neodir}/bin/neo4j start-no-wait && tail -f ${neodir}/data/log/*.log &
+RUN ${neodir}/bin/neo4j start
 
