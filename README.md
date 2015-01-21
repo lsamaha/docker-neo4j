@@ -1,14 +1,18 @@
 # docker-neo4j
 
-This docker file starts neo4j 2.2.0 on Debian in a Docker container.
+This docker file starts neo4j 2.2.0 community edition on Debian in a Docker container.
 
 ## Host
 
 The standard neo4j 7473 and 7474 ports are exposed. Just map them to host ports using docker's -p parameter.
 
 ```
-docker run -d -p 7474:7474 lwsamaha/neo4j:latest
+docker run -d -p 7474:7474 SPSCommerce/neo4j:latest
 ```
+
+## SSL 
+
+In this version, a self-signed cert is provided for SSL by neo4j using debian openssl and apache packages.
 
 ## Data
 
@@ -18,7 +22,7 @@ in the docker container at /opt/neo4j/data.
 Just run the container with -v and map your host directory to the container path.
 
 ```
-docker run -v hostdir:/opt/neo4j/data -d -p 7474:7474 lwsamaha/neo4j:latest
+docker run -v hostdir:/opt/neo4j/data -d -p 7474:7474 SPSCommerce/neo4j:latest
 ```
 
 ## Logs
@@ -27,3 +31,4 @@ The logs are appended to standard out and are also available in the mounted volu
 If you've mapped the container data directory volume to a host directory, logs will be available after the container is removed.
 
 _** Happy graphing! **_
+
